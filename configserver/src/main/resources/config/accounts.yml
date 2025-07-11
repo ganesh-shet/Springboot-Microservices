@@ -1,0 +1,18 @@
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to SpringBank accounts related local APIs "
+  contactDetails:
+    name: "Ganesh Shet - Developer"
+    email: "ganesh@springbank.com"
+  onCallSupport:
+    - (666) 265-3765
+    - (666) 734-8371
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+build:
+  version: "3.0"
+
+cards:
+  message: "Welcome to SpringBank cards related local APIs "
+  contactDetails:
+    name: "Ganesh Shet - Developer"
+    email: "ganesh@springbank.com"
+  onCallSupport:
+    - (666) 265-3765
+    - (666) 734-8371
