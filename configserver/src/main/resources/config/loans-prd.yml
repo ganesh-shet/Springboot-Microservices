@@ -1,7 +1,7 @@
 build:
   version: "1.0"
 
-accounts:
+loans:
   message: "Welcome to SpringBank loans related PRD APIs "
   contactDetails:
     name: "Ganesh Shet - PRD Lead"

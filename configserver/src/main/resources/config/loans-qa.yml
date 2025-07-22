@@ -1,7 +1,7 @@
 build:
   version: "2.0"
 
-accounts:
+loans:
   message: "Welcome to SpringBank loans related QA APIs "
   contactDetails:
     name: "Ganesh Shet - QA Lead"

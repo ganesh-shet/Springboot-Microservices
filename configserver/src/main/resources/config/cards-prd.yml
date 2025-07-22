@@ -6,7 +6,7 @@ spring:
 build:
   version: "1.0"
 
-accounts:
+cards:
   message: "Welcome to SpringBank cards related PRD APIs "
   contactDetails:
     name: "Ganesh Shet - PRD Lead"

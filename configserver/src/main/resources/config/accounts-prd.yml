@@ -2,7 +2,7 @@ build:
   version: "1.0"
 
 accounts:
-  message: "Welcome to SpringBank accounts related PRD APIs "
+  message: "Welcome to SpringBank accounts related prd APIs "
   contactDetails:
     name: "Ganesh Shet - PRD Lead"
     email: "ganesh@springbank.com"
