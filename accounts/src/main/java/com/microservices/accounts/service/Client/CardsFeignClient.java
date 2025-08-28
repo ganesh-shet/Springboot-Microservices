@@ -1,7 +1,6 @@
 package com.microservices.accounts.service.Client;
 
 import com.microservices.accounts.DTO.CardsDTO;
-import jakarta.validation.constraints.Pattern;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
