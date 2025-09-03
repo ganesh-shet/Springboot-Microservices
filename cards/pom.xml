@@ -121,7 +121,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>ganeshshet/${project.artifactId}:v2</image>
+						<image>ganeshshet/${project.artifactId}:v3</image>
 					</to>
 				</configuration>
 			</plugin>
