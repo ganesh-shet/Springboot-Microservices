@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.microservices</groupId>
-	<artifactId>EurekaServer</artifactId>
+	<artifactId>eurekaServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>EurekaServer</name>
 	<description>Service Discovery Agent For Spring Bank Microservices</description>
