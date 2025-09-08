@@ -105,6 +105,14 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<repositories>
+		<repository>
+			<id>google-maven-central</id>
+			<name>Google Maven Central</name>
+			<url>https://maven-central.storage-download.googleapis.com/maven2/</url>
+		</repository>
+	</repositories>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -130,7 +138,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>ganeshshet/${project.artifactId}:v3</image>
+						<image>ganeshshet/${project.artifactId}:v4</image>
 					</to>
 				</configuration>
 			</plugin>

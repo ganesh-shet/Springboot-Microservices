@@ -72,11 +72,29 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<repositories>
+		<repository>
+			<id>google-maven-central</id>
+			<name>Google Maven Central</name>
+			<url>https://maven-central.storage-download.googleapis.com/maven2/</url>
+		</repository>
+	</repositories>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.2</version>
+				<configuration>
+					<to>
+						<image>ganeshshet/${project.artifactId}:v4</image>
+					</to>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
