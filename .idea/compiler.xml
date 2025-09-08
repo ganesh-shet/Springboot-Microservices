@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="EurekaServer" />
+        <module name="gateway-server" />
         <module name="configserver" />
       </profile>
       <profile name="Annotation profile for loans" enabled="true">
@@ -29,6 +30,7 @@
       <module name="accounts" options="-parameters" />
       <module name="cards" options="-parameters" />
       <module name="configserver" options="-parameters" />
+      <module name="gateway-server" options="-parameters" />
       <module name="loans" options="-parameters" />
     </option>
   </component>
