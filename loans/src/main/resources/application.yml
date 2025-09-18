@@ -26,12 +26,17 @@ management:
     web:
       exposure:
         include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
   endpoint:
     shutdown:
       access: unrestricted
-  info:
-    env:
-      enabled: true
+    health:
+      probes:
+        enabled: true
 
 eureka:
   instance:
