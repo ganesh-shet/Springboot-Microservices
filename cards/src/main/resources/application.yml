@@ -47,3 +47,9 @@ info:
     name: "cards"
     description: "Spring Bank Cards Application"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      microservices:
+        cards: DEBUG
