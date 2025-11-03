@@ -1,6 +1,6 @@
 services:
   configserver:
-    image: "ganeshshet/configserver:v5"
+    image: "ganeshshet/configserver:v6"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -15,7 +15,7 @@ services:
       service: microservice-base-config
 
   eurekaserver:
-    image: "ganeshshet/eurekaserver:v5"
+    image: "ganeshshet/eurekaserver:v6"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -35,7 +35,7 @@ services:
       SPRING_APPLICATION_NAME: "eurekaserver"
 
   accounts:
-    image: "ganeshshet/accounts:v5"
+    image: "ganeshshet/accounts:v6"
     container_name: accounts-ms
     ports:
       - "8080:8080"
@@ -57,7 +57,7 @@ services:
       service: microservice-eureka-config
 
   loans:
-    image: "ganeshshet/loans:v5"
+    image: "ganeshshet/loans:v6"
     container_name: loans-ms
     ports:
       - "8090:8090"
@@ -79,7 +79,7 @@ services:
       service: microservice-eureka-config
 
   cards:
-    image: "ganeshshet/cards:v5"
+    image: "ganeshshet/cards:v6"
     container_name: cards-ms
     ports:
       - "9000:9000"
@@ -101,7 +101,7 @@ services:
       service: microservice-eureka-config
       
   gatewayserver:
-    image: "ganeshshet/gatewayserver:v5"
+    image: "ganeshshet/gatewayserver:v6"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"

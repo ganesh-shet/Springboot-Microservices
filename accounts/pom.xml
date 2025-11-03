@@ -130,7 +130,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>ganeshshet/${project.artifactId}:v5</image>
+						<image>ganeshshet/${project.artifactId}:v6</image>
 					</to>
 				</configuration>
 			</plugin>
