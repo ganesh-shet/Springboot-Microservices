@@ -10,10 +10,10 @@ spring:
           discovery:
             locator:
               enabled: false
-              lowerCaseServiceId: true
+              lower-case-service-id: true
           httpclient:
-            connect-timeout: 2000
-            response-timeout: 15s
+            connect-timeout: 1000
+            response-timeout: 10s
   data:
     redis:
       connect-timeout: 2s
@@ -32,15 +32,9 @@ management:
   info:
     env:
       enabled: true
-
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    fetchRegistry: true
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://localhost:8070/eureka/
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 info:
   app:
@@ -53,6 +47,8 @@ logging:
     com:
       microservices:
         gatewayserver: DEBUG
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
 
 resilience4j.circuitbreaker:
   configs:
