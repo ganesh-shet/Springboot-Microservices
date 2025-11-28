@@ -328,7 +328,7 @@ services:
       service: microservice-eureka-config
       
   gatewayserver:
-    image: "ganeshshet/gatewayserver:v7"
+    image: "ganeshshet/gateway-server:v7"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"
@@ -339,11 +339,9 @@ services:
         condition: service_healthy
       cards:
         condition: service_healthy
-      redis:
-        condition: service_healthy
     environment:
-      SPRING_APPLICATION_NAME: "gatewayserver"
-      OTEL_SERVICE_NAME: "gatewayserver"
+      SPRING_APPLICATION_NAME: "gateway-server"
+      OTEL_SERVICE_NAME: "gateway-server"
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: "http://keycloak:8080/realms/master/protocol/openid-connect/certs"
     extends:
       file: common-config.yml
