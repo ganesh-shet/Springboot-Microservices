@@ -24,9 +24,9 @@ services:
       - minio
     healthcheck:
       test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1" ]
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 5
+      retries: 20
     networks: &loki-dns
       springbank:
         aliases:
@@ -43,9 +43,9 @@ services:
       - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
     healthcheck:
       test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1" ]
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 5
+      retries: 20
     depends_on:
       - minio
     networks:
@@ -85,9 +85,9 @@ services:
       - ./.data/minio:/data
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
-      interval: 15s
+      interval: 20s
       timeout: 20s
-      retries: 5
+      retries: 20
     extends:
       file: common-config.yml
       service: network-deploy-service
@@ -135,9 +135,9 @@ services:
       - ../observability/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
     healthcheck:
       test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1" ]
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 5
+      retries: 20
     extends:
       file: common-config.yml
       service: network-deploy-service
@@ -219,9 +219,9 @@ services:
       - "3100:3100"
     healthcheck:
       test: [ "CMD", "service", "nginx", "status" ]
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 5
+      retries: 20
     extends:
       file: common-config.yml
       service: network-deploy-service
