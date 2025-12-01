@@ -2,6 +2,7 @@ package com.microservices.accounts.service;
 
 import com.microservices.accounts.Constants.AccountsConstants;
 import com.microservices.accounts.DTO.AccountsDTO;
+import com.microservices.accounts.DTO.AccountsMsgDTO;
 import com.microservices.accounts.DTO.CustomerDTO;
 import com.microservices.accounts.Mapper.AccountsMapper;
 import com.microservices.accounts.Mapper.CustomerMapper;
@@ -11,23 +12,26 @@ import com.microservices.accounts.exceptions.CustomerAlreadyExistsException;
 import com.microservices.accounts.exceptions.ResourceNotFoundException;
 import com.microservices.accounts.repository.AccountsRepository;
 import com.microservices.accounts.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
+import org.slf4j.Logger;
 import java.util.Optional;
 import java.util.Random;
 
 @Service
+@AllArgsConstructor
 public class AccountsServiceImpl implements AccountsService{
-    @Autowired
-    private AccountsRepository accountsRepository;
 
-    @Autowired
+    private static final Logger log= LoggerFactory.getLogger(AccountsServiceImpl.class);
+
+    private AccountsRepository accountsRepository;
     private CustomerRepository customerRepository;
+    private final StreamBridge streamBridge;
 
     @Override
-    public CustomerDTO createAccount(CustomerDTO customerDTO) {
+    public void createAccount(CustomerDTO customerDTO) {
         Customer customer = CustomerMapper.mapToCustomer(customerDTO, new Customer());
         Optional<Customer> optionalCustomer = customerRepository.findByMobileNumber(customerDTO.getMobileNumber());
         if(optionalCustomer.isPresent()) {
@@ -35,9 +39,15 @@ public class AccountsServiceImpl implements AccountsService{
                     +customerDTO.getMobileNumber());
         }
         Customer savedCustomer = customerRepository.save(customer);
-        accountsRepository.save(createNewAccount(savedCustomer));
-
-        return customerDTO;
+        Accounts savedAccount = accountsRepository.save(createNewAccount(savedCustomer));
+        sendCommunication(savedAccount, savedCustomer);
+    }
+    private void sendCommunication(Accounts account, Customer customer) {
+        var accountsMsgDTO = new AccountsMsgDTO(account.getAccountNumber(), customer.getName(),
+                customer.getEmail(), customer.getMobileNumber());
+        log.info("Sending Communication request for the details: {}", accountsMsgDTO);
+        var result = streamBridge.send("sendCommunication-out-0", accountsMsgDTO);
+        log.info("Is the Communication request successfully triggered ? : {}", result);
     }
 
     /**
@@ -101,4 +111,20 @@ public class AccountsServiceImpl implements AccountsService{
         customerRepository.deleteById(customer.getCustomerId());
         return true;
     }
+
+    @Override
+    public boolean updateCommunicationStatus(Long accountNumber) {
+        boolean isUpdated = false;
+        if(accountNumber !=null ){
+            Accounts accounts = accountsRepository.findById(accountNumber).orElseThrow(
+                    () -> new ResourceNotFoundException("Account", "AccountNumber", accountNumber.toString())
+            );
+            accounts.setCommunicationSw(true);
+            accountsRepository.save(accounts);
+            isUpdated = true;
+        }
+        return  isUpdated;
+    }
+
+
 }

@@ -1,4 +1,20 @@
 services:
+  rabbit:
+    image: rabbitmq:4.0-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   keycloak:
     image: quay.io/keycloak/keycloak:26.4.0
     container_name: keycloak
@@ -227,7 +243,7 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "ganeshshet/configserver:v7"
+    image: "ganeshshet/configserver:v8"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -244,7 +260,7 @@ services:
       OTEL_SERVICE_NAME: "configserver"
 
   eurekaserver:
-    image: "ganeshshet/eurekaserver:v7"
+    image: "ganeshshet/eurekaserver:v8"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -265,28 +281,31 @@ services:
       OTEL_SERVICE_NAME: "eurekaserver"
 
   accounts:
-    image: "ganeshshet/accounts:v7"
+    image: "ganeshshet/accounts:v8"
     container_name: accounts-ms
-    depends_on:
-      configserver:
-        condition: service_healthy
-      eurekaserver:
-        condition: service_healthy
     healthcheck:
-      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
       interval: 20s
       timeout: 5s
       retries: 20
       start_period: 10s
+    depends_on:
+        configserver:
+          condition: service_healthy
+        eurekaserver:
+          condition: service_healthy
+        rabbit:
+          condition: service_healthy
     environment:
-      SPRING_APPLICATION_NAME: "accounts"
-      OTEL_SERVICE_NAME: "accounts"
+        SPRING_APPLICATION_NAME: "accounts"
+        OTEL_SERVICE_NAME: "accounts"
+        SPRING_RABBITMQ_HOST: "rabbit"
     extends:
-      file: common-config.yml
-      service: microservice-eureka-config
+        file: common-config.yml
+        service: microservice-eureka-config
 
   loans:
-    image: "ganeshshet/loans:v7"
+    image: "ganeshshet/loans:v8"
     container_name: loans-ms
     depends_on:
       configserver:
@@ -307,7 +326,7 @@ services:
       service: microservice-eureka-config
 
   cards:
-    image: "ganeshshet/cards:v7"
+    image: "ganeshshet/cards:v8"
     container_name: cards-ms
     depends_on:
       configserver:
@@ -326,9 +345,21 @@ services:
     extends:
       file: common-config.yml
       service: microservice-eureka-config
+
+  message:
+    image: "ganeshshet/message:v8"
+    container_name: message-ms
+    depends_on:
+      rabbit:
+        condition: service_healthy
+    environment:
+      SPRING_RABBITMQ_HOST: "rabbit"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
       
   gatewayserver:
-    image: "ganeshshet/gateway-server:v7"
+    image: "ganeshshet/gateway-server:v8"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"

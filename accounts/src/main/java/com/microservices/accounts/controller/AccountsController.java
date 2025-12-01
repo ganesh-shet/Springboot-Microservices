@@ -69,10 +69,11 @@ public class AccountsController {
     }
     )
     @PostMapping("/create")
-    public ResponseEntity<CustomerDTO> createAccount(@Valid @RequestBody CustomerDTO customerDTO) {
-        CustomerDTO savedCustomer = accountsService.createAccount(customerDTO);
-        return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
-
+    public ResponseEntity<ResponseDTO> createAccount(@Valid @RequestBody CustomerDTO customerDTO) {
+        accountsService.createAccount(customerDTO);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new ResponseDTO(AccountsConstants.STATUS_201, AccountsConstants.MESSAGE_201));
     }
 
 //Getting all the accounts for the customer
