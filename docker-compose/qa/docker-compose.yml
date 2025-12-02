@@ -260,7 +260,7 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "ganeshshet/configserver:v8"
+    image: "ganeshshet/configserver:v9"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -277,7 +277,7 @@ services:
       OTEL_SERVICE_NAME: "configserver"
 
   eurekaserver:
-    image: "ganeshshet/eurekaserver:v8"
+    image: "ganeshshet/eurekaserver:v9"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -298,7 +298,7 @@ services:
       OTEL_SERVICE_NAME: "eurekaserver"
 
   accounts:
-    image: "ganeshshet/accounts:v8"
+    image: "ganeshshet/accounts:v9"
     container_name: accounts-ms
     healthcheck:
       test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
@@ -322,7 +322,7 @@ services:
         service: microservice-eureka-config
 
   loans:
-    image: "ganeshshet/loans:v8"
+    image: "ganeshshet/loans:v9"
     container_name: loans-ms
     depends_on:
       configserver:
@@ -343,7 +343,7 @@ services:
       service: microservice-eureka-config
 
   cards:
-    image: "ganeshshet/cards:v8"
+    image: "ganeshshet/cards:v9"
     container_name: cards-ms
     depends_on:
       configserver:
@@ -364,7 +364,7 @@ services:
       service: microservice-eureka-config
 
   message:
-    image: "ganeshshet/message:v8"
+    image: "ganeshshet/message:v9"
     container_name: message-ms
     depends_on:
       kafka:
@@ -376,7 +376,7 @@ services:
       service: network-deploy-service
       
   gatewayserver:
-    image: "ganeshshet/gateway-server:v8"
+    image: "ganeshshet/gateway-server:v9"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"
