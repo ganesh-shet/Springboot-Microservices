@@ -19,8 +19,8 @@ spring:
           brokers:
             - localhost:9092
 
-logging:
-  level:
-    org.springframework.amqp: ERROR
-    org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer: ERROR
-    org.springframework.cloud.stream.binder.rabbit: ERROR
+#logging:
+#  level:
+#    org.springframework.amqp: ERROR
+#    org.springframework.amqp.kafka.listener.SimpleMessageListenerContainer: ERROR
+#    org.springframework.cloud.stream.binder.kafka: ERROR
