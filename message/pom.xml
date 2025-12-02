@@ -74,7 +74,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>ganeshshet/${project.artifactId}:v8</image>
+						<image>ganeshshet/${project.artifactId}:v9</image>
 					</to>
 				</configuration>
 			</plugin>
