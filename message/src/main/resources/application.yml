@@ -21,8 +21,8 @@ spring:
     password: guest
     connection-timeout: 10s
 
-#logging:
-#  level:
-#    org.springframework.amqp: ERROR
-#    org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer: ERROR
-#    org.springframework.cloud.stream.binder.rabbit: ERROR
+logging:
+  level:
+    org.springframework.amqp: ERROR
+    org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer: ERROR
+    org.springframework.cloud.stream.binder.rabbit: ERROR
